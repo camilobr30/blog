@@ -8,8 +8,9 @@ from .models import Post
 
 class BlogListView(View):
     def get(self, request, *args, **kwargs):
+        posts = Post.objects.all()
         context = {
-            
+            'posts':posts
         }
         return render(request, 'blog_list.html', context)
 
