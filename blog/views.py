@@ -1,6 +1,6 @@
 from importlib.resources import contents
 from multiprocessing import context
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.base import View
 from .forms import PostCreateForm
 from .models import Post
@@ -35,3 +35,11 @@ class BlogCreateView(View):
                 return redirect('blog:home')
         context={}
         return render(request, 'blog_create.html', context)
+
+class BlogDetailView(View):
+    def get(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk)
+        context={
+            'post':post
+        }
+        return render(request, 'blog_detail.html', context)
